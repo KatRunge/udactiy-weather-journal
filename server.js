@@ -31,22 +31,20 @@ function listening() {
 
 app.get("/all", sendData);
 
-function sendData(req, response) {
-  response.send(projectData);
+function sendData(req, res) {
+  res.send(projectData);
 }
 
 // POST route
-app.post("/add", callBack);
+app.post("/addWeather", addWeather);
 
-function callBack(req, res) {
-  res.send("POST received");
+function addWeather(req, res) {
+  newEntry = {
+      city: req.body.city,
+      feelings: req.body.feelings
+    }
+    weatherData.push(newEntry)
+    res.send(projectData)
 }
 
-// POST an animal
-const data = [];
 
-app.post("/animal", addAnimal);
-
-function addAnimal(req, res) {
-  data.push(req.body);
-}
