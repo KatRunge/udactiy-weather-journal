@@ -1,19 +1,18 @@
 /* Global Variables */
 
-let baseURL =
-  "https://api.openweathermap.org/data/2.5/weather?q=London&appid=122ce078cd71684983156bf14ff9424b";
-let apiKey = "&appid={122ce078cd71684983156bf14ff9424b}";
+let baseURL = "https://api.openweathermap.org/data/2.5/weather?q=London&appid=";
+let apiKey = "122ce078cd71684983156bf14ff9424b";
 const newZip = document.getElementById("zip").value;
 
 document.getElementById("generate").addEventListener("click", performAction);
 
 function performAction(e) {
-  getWeather(baseURL);
+  getWeather(baseURL, apiKey);
 }
 
-const getWeather = async (baseURL) => {
+const getWeather = async (url, key) => {
   // 1.
-  const res = await fetch(baseURL);
+  const res = await fetch(url + key);
   try {
     const data = await res.json();
     console.log(data);
