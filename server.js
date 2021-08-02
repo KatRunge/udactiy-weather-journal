@@ -39,10 +39,6 @@ function sendData(req, res) {
 const data = [];
 app.post("/", addWeather);
 function addWeather(req, res) {
-  newEntry = {
-      zip: req.body.zip,
-      country: req.body.country,
-    }
     data.push(req.body)
     res.send(projectData)
 }

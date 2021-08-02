@@ -2,17 +2,20 @@
 
 let baseURL = "https://api.openweathermap.org/data/2.5/weather?zip=";
 let apiKey = "&appid=122ce078cd71684983156bf14ff9424b";
-const newZip = document.getElementById("zip").value;
-const newCountry = document.getElementById("code").value;
+const zip = document.getElementById("inputZip");
+const country = document.getElementById("code");
 
 document.getElementById("generate").addEventListener("click", performAction);
 
 function performAction(e) {
-  getWeather(baseURL, newZip + ",", newCountry, apiKey)
+  getWeather(baseURL, zip.value + ",", country.value, apiKey)
     .then(function (data) {
+      console.log(data)
       postData("/", {
-        zip: data.zip,
-        country: data.country,
+        city: data.name,
+        country: data.sys[2],
+        zip,
+        country,
       });
     })
     .then(updateUI());
@@ -22,8 +25,8 @@ const updateUI = async () => {
   const request = await fetch("/");
   try {
     const allData = await request.json();
-    document.getElementById("cityZip").innerHTML = allData[0].zip;
-    document.getElementById("countryCode").innerHTML = allData[0].country;
+    document.getElementById("city").innerHTML = allData.name;
+    document.getElementById("date").innerHTML = allData.sys[2];
   } catch (error) {
     console.log("error", error);
   }
