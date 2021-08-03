@@ -4,6 +4,7 @@ let baseURL = "https://api.openweathermap.org/data/2.5/weather?zip=";
 let apiKey = "&appid=122ce078cd71684983156bf14ff9424b";
 const zip = document.getElementById("inputZip");
 const country = document.getElementById("code");
+const feelings = document.getElementById("feelings");
 
 document.getElementById("generate").addEventListener("click", performAction);
 
@@ -13,9 +14,8 @@ function performAction(e) {
       console.log(data)
       postData("/", {
         city: data.name,
-        country: data.sys[2],
-        zip,
-        country,
+        country: data.sys.country,
+        feelings: feelings.value,
       });
     })
     .then(updateUI());
@@ -26,7 +26,7 @@ const updateUI = async () => {
   try {
     const allData = await request.json();
     document.getElementById("city").innerHTML = allData.name;
-    document.getElementById("date").innerHTML = allData.sys[2];
+    document.getElementById("date").innerHTML = allData.sys;
   } catch (error) {
     console.log("error", error);
   }
@@ -65,7 +65,7 @@ const postData = async (url = "", data = {}) => {
   }
 };
 
-postData("", { answer: 42 });
+postData();
 
 // // Create a new date instance dynamically with JS
 // let d = new Date();
