@@ -6,6 +6,10 @@ const zip = document.getElementById("inputZip");
 const country = document.getElementById("code");
 const feelings = document.getElementById("feelings");
 
+// // Create a new date instance dynamically with JS
+let d = new Date();
+let newDate = d.getMonth() + "." + d.getDate() + "." + d.getFullYear();
+
 document.getElementById("generate").addEventListener("click", performAction);
 
 function performAction(e) {
@@ -16,6 +20,7 @@ function performAction(e) {
         city: data.name,
         country: data.sys.country,
         feelings: feelings.value,
+        newDate,
       });
     })
     .then(updateUI());
@@ -26,7 +31,7 @@ const updateUI = async () => {
   try {
     const allData = await request.json();
     document.getElementById("city").innerHTML = allData.name;
-    document.getElementById("date").innerHTML = allData.sys;
+    document.getElementById("date").innerHTML = allData.sys.country;
   } catch (error) {
     console.log("error", error);
   }
@@ -66,7 +71,3 @@ const postData = async (url = "", data = {}) => {
 };
 
 postData();
-
-// // Create a new date instance dynamically with JS
-// let d = new Date();
-// let newDate = d.getMonth() + "." + d.getDate() + "." + d.getFullYear();
