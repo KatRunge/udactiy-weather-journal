@@ -13,8 +13,7 @@ let date = d.getMonth() + "." + d.getDate() + "." + d.getFullYear();
 document.getElementById("generate").addEventListener("click", performAction);
 
 function performAction(e) {
-  getWeather(baseURL, zip.value + ",", country.value, apiKey)
-  .then(function (
+  getWeather(baseURL, zip.value + ",", country.value, apiKey).then(function (
     data
   ) {
     postData("/post", {
@@ -23,8 +22,8 @@ function performAction(e) {
       feelings: feelings.value,
       date,
     });
-  });
-  updateUI("/get");
+  })
+  updateUI();
 }
 
 const getWeather = async (url, zip, country, key) => {
