@@ -12,40 +12,26 @@ let newDate = d.getMonth() + "." + d.getDate() + "." + d.getFullYear();
 
 document.getElementById("generate").addEventListener("click", performAction);
 
-function performAction(e) {
+function performAction() {
   getWeather(baseURL, zip.value + ",", country.value, apiKey)
     .then(function (data) {
-      console.log(data)
       postData("/", {
         city: data.name,
-        country: data.sys.country,
+        temperature: data.main.temp,
         feelings: feelings.value,
         newDate,
       });
     })
-    .then(updateUI());
+    updateUI();
 }
-
-const updateUI = async () => {
-  const request = await fetch("/");
-  try {
-    const allData = await request.json();
-    document.getElementById("city").innerHTML = allData.name;
-    document.getElementById("date").innerHTML = allData.sys.country;
-  } catch (error) {
-    console.log("error", error);
-  }
-};
 
 const getWeather = async (url, zip, country, key) => {
   const res = await fetch(url + zip + country + key);
   try {
     const data = await res.json();
-    console.log(data);
     return data;
   } catch (error) {
     console.log("error", error);
-    // appropriately handle the error
   }
 };
 
@@ -57,17 +43,28 @@ const postData = async (url = "", data = {}) => {
     headers: {
       "Content-Type": "application/json",
     },
-    // Body data type must match "Content-Type" header
     body: JSON.stringify(data),
   });
 
   try {
     const newData = await response.json();
-    console.log(newData);
     return newData;
   } catch (error) {
     console.log("error", error);
   }
 };
 
-postData();
+
+const updateUI = async (url = "/") => {
+  const request = await fetch(url);
+  try {
+    const allData = await request.json();
+    console.log(allData);
+    document.getElementById("city").innerHTML = allData.city;
+    document.getElementById("temp").innerHTML = allData.temperature;
+    document.getElementById("feelings").innerHTML = allData.feelings;
+    document.getElementById("date").innerHTML = allData.newDate;
+  } catch (error) {
+    console.log("error", error);
+  }
+};
