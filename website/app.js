@@ -5,10 +5,6 @@ let apiKey = "&appid=122ce078cd71684983156bf14ff9424b";
 const zip = document.getElementById("inputZip");
 const country = document.getElementById("code");
 const feelings = document.getElementById("feelings");
-const newCity = document.getElementById("city");
-const newTemp = document.getElementById("temp");
-const newDate = document.getElementById("date");
-const newFeelings = document.getElementById("feelings");
 
 // // Create a new date instance dynamically with JS
 let d = new Date();
@@ -28,7 +24,7 @@ function performAction(e) {
       date,
     });
   });
-  updateUI();
+  updateUI("/get");
 }
 
 const getWeather = async (url, zip, country, key) => {
@@ -64,11 +60,10 @@ const updateUI = async () => {
   const request = await fetch("/get");
   try {
     const allData = await request.json();
-    console.log(allData.city);
-    newCity.innerHTML = allData.name;
-    newTemp.innerHTML = allData.temperature;
-    newFeelings.innerHTML = allData.feelings;
-    newDate.innerHTML = allData.date;
+    document.getElementById("city").innerHTML = allData.city;
+    document.getElementById("temp").innerHTML = allData.temperature;
+    document.getElementById("feels").innerHTML = allData.feelings;
+    document.getElementById("date").innerHTML = allData.date;
   } catch (error) {
     console.log("error", error);
   }
