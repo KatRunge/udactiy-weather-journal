@@ -5,24 +5,30 @@ let apiKey = "&appid=122ce078cd71684983156bf14ff9424b";
 const zip = document.getElementById("inputZip");
 const country = document.getElementById("code");
 const feelings = document.getElementById("feelings");
+const newCity = document.getElementById("city");
+const newTemp = document.getElementById("temp");
+const newDate = document.getElementById("date");
+const newFeelings = document.getElementById("feelings");
 
 // // Create a new date instance dynamically with JS
 let d = new Date();
-let newDate = d.getMonth() + "." + d.getDate() + "." + d.getFullYear();
+let date = d.getMonth() + "." + d.getDate() + "." + d.getFullYear();
 
 document.getElementById("generate").addEventListener("click", performAction);
 
-function performAction() {
+function performAction(e) {
   getWeather(baseURL, zip.value + ",", country.value, apiKey)
-    .then(function (data) {
-      postData("/", {
-        city: data.name,
-        temperature: data.main.temp,
-        feelings: feelings.value,
-        newDate,
-      });
-    })
-    updateUI();
+  .then(function (
+    data
+  ) {
+    postData("/post", {
+      city: data.name,
+      temperature: data.main.temp,
+      feelings: feelings.value,
+      date,
+    });
+  });
+  updateUI();
 }
 
 const getWeather = async (url, zip, country, key) => {
@@ -54,16 +60,15 @@ const postData = async (url = "", data = {}) => {
   }
 };
 
-
-const updateUI = async (url = "/") => {
-  const request = await fetch(url);
+const updateUI = async () => {
+  const request = await fetch("/get");
   try {
     const allData = await request.json();
-    console.log(allData);
-    document.getElementById("city").innerHTML = allData.city;
-    document.getElementById("temp").innerHTML = allData.temperature;
-    document.getElementById("feelings").innerHTML = allData.feelings;
-    document.getElementById("date").innerHTML = allData.newDate;
+    console.log(allData.city);
+    newCity.innerHTML = allData.name;
+    newTemp.innerHTML = allData.temperature;
+    newFeelings.innerHTML = allData.feelings;
+    newDate.innerHTML = allData.date;
   } catch (error) {
     console.log("error", error);
   }
