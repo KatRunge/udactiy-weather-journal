@@ -22,8 +22,8 @@ function performAction(e) {
       feelings: feelings.value,
       date,
     });
+    updateUI("/get");
   });
-  updateUI("/get");
 }
 
 const getWeather = async (url, zip, country, key) => {
