@@ -22,8 +22,8 @@ function performAction(e) {
       feelings: feelings.value,
       date,
     });
-  })
-  updateUI();
+  });
+  updateUI("/get");
 }
 
 const getWeather = async (url, zip, country, key) => {
@@ -55,8 +55,8 @@ const postData = async (url = "", data = {}) => {
   }
 };
 
-const updateUI = async () => {
-  const request = await fetch("/get");
+const updateUI = async (url = "") => {
+  const request = await fetch(url);
   try {
     const allData = await request.json();
     document.getElementById("city").innerHTML = allData.city;
