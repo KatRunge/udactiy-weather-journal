@@ -1,9 +1,9 @@
 // /* Global Variables */
 
 // APi base url for getting zip code data
-let baseURL = "https://api.openweathermap.org/data/2.5/weather?zip=";
+const baseURL = "https://api.openweathermap.org/data/2.5/weather?zip=";
 // API key to complete baseUrl
-let apiKey = "&appid=122ce078cd71684983156bf14ff9424b";
+const apiKey = "&appid=122ce078cd71684983156bf14ff9424b&units=metric";
 // get element where the zip data will be added
 const zip = document.getElementById("inputZip");
 // get element where the country code will be added
@@ -71,7 +71,7 @@ const newEntryData = async () => {
   try {
     const allData = await request.json();
     document.getElementById("city").innerHTML = allData.city;
-    document.getElementById("temp").innerHTML = allData.temperature + " F°";
+    document.getElementById("temp").innerHTML = allData.temperature + " C°";
     document.getElementById("feels").innerHTML = allData.feelings;
     document.getElementById("date").innerHTML = allData.date;
   } catch (error) {
