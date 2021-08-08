@@ -1,4 +1,5 @@
 // Setup empty JS object to act as endpoint for all routes
+// needed to change const for let
 let projectData = {};
 
 // Require Express to run server and routes
@@ -8,6 +9,7 @@ const express = require("express");
 const app = express();
 
 /* Middleware*/
+// bodyParser is deprecated
 const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -34,7 +36,7 @@ function sendData(req, res) {
   res.send(projectData);
 }
 
-// // POST route
+// POST route
 app.post("/post", addWeather);
 function addWeather(req, res) {
   projectData = {

@@ -16,23 +16,20 @@ body {
   font-family: "Oswald", sans-serif;
 }
 
-.holder {
-}
-
 .entry {
+  box-sizing: border-box;
+  width: 320px;
+  padding: 20px;
   background: rgba(59, 74, 107, 0.4);
 }
 
 #entryHolder {
+  margin-top: 20px;
+  color: white;
 }
 
-#date {
-}
-
-#temp {
-}
-
-#content {
+#city {
+  font-size: 24px;
 }
 
 .headline {
@@ -48,9 +45,6 @@ body {
 
 .input-content {
   margin-bottom: 20px;
-}
-
-.title {
 }
 
 #generate {
@@ -101,7 +95,6 @@ textarea {
   margin-bottom: 20px;
   width: 320px;
   height: 100px;
-
 }
 
 @media (min-width: 600px) {
@@ -109,7 +102,6 @@ textarea {
     max-width: 500px;
   }
 }
-
 
 /* Reset style for HTML element on active to have no border*/
 input:focus,
