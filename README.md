@@ -1,4 +1,4 @@
-# udactiy-weather-journal
+# udacity-weather-journal
 
 Create a weather journal app to display data based on a city zip code
 NOTE: you need to add the country code in order to be able to get the correct data, for example us, de, it
